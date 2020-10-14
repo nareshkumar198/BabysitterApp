@@ -23,5 +23,13 @@ public class ApiClient {
         UserService userService = getRetrofit().create(UserService.class);
         return userService;
     }
+    public static FamilyService getFamilyService(){
+        FamilyService familyService = getRetrofit().create(FamilyService.class);
+        return familyService;
+    }
+    public static BabySitterService getBabySitterService(){
+        BabySitterService babySitterService = getRetrofit().create(BabySitterService.class);
+        return babySitterService;
+    }
 
 }
