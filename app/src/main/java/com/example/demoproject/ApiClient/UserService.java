@@ -1,45 +1,43 @@
 package com.example.demoproject.ApiClient;
 
-import com.example.demoproject.model.LoginRequest;
-import com.example.demoproject.model.LoginResponse;
-import com.example.demoproject.model.RegisterRequest;
+import com.example.demoproject.model.Credentials;
+import com.example.demoproject.model.User;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Query;
 
 public interface UserService {
-
     @PUT("api/user/editProfile")
-    Call<LoginResponse> editProfile(@Body LoginRequest loginRequest);
+    Call<User> editProfile(@Body User user);
 
 
     @PUT("api/user/refreshIdToken")
-    Call<LoginResponse> refreshIdToken(@Body LoginRequest loginRequest);
+    Call<User> refreshIdToken(@Body Credentials credentials);
 
     @PUT("api/user/forgotPassword")
-    Call<LoginResponse> forgotPassword(@Body LoginRequest loginRequest);
+    Call<User> forgotPassword(@Body Credentials credentials);
 
     @PUT("api/user/resetPassword")
-    Call<LoginResponse> resetPassword(@Body LoginRequest loginRequest);
+    Call<User> resetPassword(@Query("idToken") String idToken, @Body Credentials credentials);
 
 
     @PUT("api/user/signIn")
-    Call<LoginResponse> loginUser(@Body LoginRequest loginRequest);
+    Call<User> loginUser(@Body Credentials credentials);
 
 
     @PUT("api/user/signIn/code")
-    Call<LoginResponse> signInCode(@Body LoginRequest loginRequest);
+    Call<User> signInCode(@Body Credentials credentials);
 
 
     @POST("api/user/signUp")
-    Call<LoginResponse> saveUsers(@Body RegisterRequest registerRequest);
+    Call<User> saveUsers(@Body User user);
 
     @PUT("api/user/signIn/socialAuth")
-    Call<LoginResponse> socialAuth(@Body LoginRequest loginRequest);
+    Call<User> socialAuth(@Body User user);
 
     @PUT("api/user/signIn/socialAuthInfo")
-    Call<LoginResponse> socialAuthInfo(@Body LoginRequest loginRequest);
-
+    Call<User> socialAuthInfo(@Body User user);
 }

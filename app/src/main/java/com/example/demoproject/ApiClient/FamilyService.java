@@ -1,24 +1,25 @@
 package com.example.demoproject.ApiClient;
 
-import com.example.demoproject.model.AddFamilyRequest;
-import com.example.demoproject.model.AddFamilyResponse;
+import com.example.demoproject.model.Family;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 
 public interface FamilyService {
 
     @GET("api/families")
-    Call<AddFamilyResponse> getFamily();
+    Call<Family> getFamily(@Header("email") String email);
 
     @POST("api/families")
-    Call<AddFamilyResponse> addFamily(@Body AddFamilyRequest addFamilyRequest);
+    Call<Family> addFamily(@Body Family family);
 
     @PUT("api/families")
-    Call<AddFamilyResponse> editFamily(@Body AddFamilyRequest addFamilyRequest);
+    Call<Family> editFamily(@Body Family family);
+
 
 
 }
