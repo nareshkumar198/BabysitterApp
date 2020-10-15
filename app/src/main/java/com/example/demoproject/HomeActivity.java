@@ -9,9 +9,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.demoproject.model.LoginResponse;
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageClickListener;
+import com.synnapps.carouselview.ImageListener;
 
 public class HomeActivity extends AppCompatActivity {
     private TextView privacyPolicy;
@@ -20,6 +25,24 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        CarouselView carouselView = (CarouselView)  findViewById(R.id.carousel);
+        carouselView.setPageCount(3);
+        carouselView.setImageListener(new ImageListener() {
+            @Override
+            public void setImageForPosition(int position, ImageView imageView) {
+                switch (position) {
+                    case 0:
+                        imageView.setImageResource(R.drawable.brothers);
+                        break;
+                    case 1:
+                        imageView.setImageResource(R.drawable.children);
+                        break;
+                    default:
+                        imageView.setImageResource(R.drawable.girls);
+                }
+            }
+        });
 
 
 
