@@ -1,10 +1,18 @@
 package com.example.demoproject.model;
 
-public class AddFamilyResponse {
-
+public class Family {
+    private Babysitter[] babySitters;
     private String id;
     private String name;
     private String primaryEmail;
+
+    public Babysitter[] getBabySitters() {
+        return babySitters;
+    }
+
+    public void setBabySitters(Babysitter[] babySitters) {
+        this.babySitters = babySitters;
+    }
 
     public String getId() {
         return id;
@@ -29,7 +37,4 @@ public class AddFamilyResponse {
     public void setPrimaryEmail(String primaryEmail) {
         this.primaryEmail = primaryEmail;
     }
-
-
-
 }

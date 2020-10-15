@@ -1,13 +1,23 @@
 package com.example.demoproject.model;
 
-public class BabySitterResponse {
+public class Babysitter {
 
+    private int communicationMode;
     private String email;
     private String familyId;
     private String firstName;
     private String id;
     private String lastName;
     private String phone;
+    private int ranking;
+
+    public int getCommunicationMode() {
+        return communicationMode;
+    }
+
+    public void setCommunicationMode(int communicationMode) {
+        this.communicationMode = communicationMode;
+    }
 
     public String getEmail() {
         return email;
@@ -55,5 +65,13 @@ public class BabySitterResponse {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public int getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(int ranking) {
+        this.ranking = ranking;
     }
 }
