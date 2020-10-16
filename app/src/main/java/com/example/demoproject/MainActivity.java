@@ -12,9 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.demoproject.ApiClient.ApiClient;
-import com.example.demoproject.model.LoginRequest;
-import com.example.demoproject.model.LoginResponse;
 import com.example.demoproject.ApiClient.Md5;
+import com.example.demoproject.model.Credentials;
+import com.example.demoproject.model.User;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -55,16 +55,16 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
                     }
                     else {
-                        LoginRequest loginRequest = new LoginRequest();
-                        loginRequest.setEmail( email.getText().toString());
-                        loginRequest.setPassword(password.getText().toString());
+                        Credentials credentials = new Credentials();
+                        credentials.setEmail( email.getText().toString());
+                        credentials.setPassword(password.getText().toString());
 
                         Md5 md5 = new Md5(password.getText().toString());
                         String a =  md5.getMd5();
-                        loginRequest.setPassword(a);
-                        password.setText(loginRequest.getPassword());
+                        credentials.setPassword(a);
+                        password.setText(credentials.getPassword());
 
-                        logiUser(loginRequest);
+                        logiUser(credentials);
                     }
 
             }
@@ -96,25 +96,25 @@ public class MainActivity extends AppCompatActivity {
 //
 //    }
     }
-    public void logiUser(LoginRequest loginRequest){
-        Call<LoginResponse> loginResponseCall = ApiClient.getService().loginUser(loginRequest);
-        loginResponseCall.enqueue(new Callback<LoginResponse>() {
+    public void logiUser(Credentials credentials){
+        Call<User> loginResponseCall = ApiClient.getService().loginUser(credentials);
+        loginResponseCall.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+            public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()){
-                    LoginResponse loginResponse = response.body();
-                    startActivity(new Intent(MainActivity.this, AfterLoginActivity.class).putExtra("data", loginResponse));
+                    User loginResponse = response.body();
+                    startActivity(new Intent(MainActivity.this, AfterLoginActivity.class).putExtra("data",loginResponse));
                     finish();
 
                 }
                 else {
-                    String message = "Please Try Again Letaer...";
+                    String message = "Please Try Again Later...";
                     Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
                 String message = t.getLocalizedMessage();
                 Toast.makeText(MainActivity.this,message, Toast.LENGTH_LONG).show();
 

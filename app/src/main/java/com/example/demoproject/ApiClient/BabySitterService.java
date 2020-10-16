@@ -1,6 +1,7 @@
 package com.example.demoproject.ApiClient;
 
-import com.example.demoproject.model.BabySitterResponse;
+import com.example.demoproject.model.Babysitter;
+import com.example.demoproject.model.Family;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
