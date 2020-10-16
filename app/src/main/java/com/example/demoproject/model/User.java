@@ -1,8 +1,9 @@
 package com.example.demoproject.model;
 
-import java.util.TimeZone;
+import java.io.Serializable;
 
-public class User {
+
+public class User implements Serializable {
 
     private String city;
     private int communicationMode;

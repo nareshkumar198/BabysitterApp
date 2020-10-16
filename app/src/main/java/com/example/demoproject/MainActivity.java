@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()){
                     User loginResponse = response.body();
-                    startActivity(new Intent(MainActivity.this, AfterLoginActivity.class).putExtra("data",loginResponse));
+                    startActivity(new Intent(MainActivity.this, AfterLoginActivity.class));
                     finish();
 
                 }
