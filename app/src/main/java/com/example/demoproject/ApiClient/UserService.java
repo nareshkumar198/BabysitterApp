@@ -1,5 +1,6 @@
 package com.example.demoproject.ApiClient;
 
+import com.example.demoproject.model.AuthResponse;
 import com.example.demoproject.model.Credentials;
 import com.example.demoproject.model.User;
 
@@ -11,33 +12,33 @@ import retrofit2.http.Query;
 
 public interface UserService {
     @PUT("api/user/editProfile")
-    Call<User> editProfile(@Body User user);
+    Call<AuthResponse> editProfile(@Body User user);
 
 
     @PUT("api/user/refreshIdToken")
-    Call<User> refreshIdToken(@Body Credentials credentials);
+    Call<AuthResponse> refreshIdToken(@Body Credentials credentials);
 
     @PUT("api/user/forgotPassword")
-    Call<User> forgotPassword(@Body Credentials credentials);
+    Call<AuthResponse> forgotPassword(@Body Credentials credentials);
 
     @PUT("api/user/resetPassword")
-    Call<User> resetPassword(@Query("idToken") String idToken, @Body Credentials credentials);
+    Call<AuthResponse> resetPassword(@Query("idToken") String idToken, @Body Credentials credentials);
 
 
     @PUT("api/user/signIn")
-    Call<User> loginUser(@Body Credentials credentials);
+    Call<AuthResponse> loginUser(@Body Credentials credentials);
 
 
     @PUT("api/user/signIn/code")
-    Call<User> signInCode(@Body Credentials credentials);
+    Call<AuthResponse> signInCode(@Body Credentials credentials);
 
 
     @POST("api/user/signUp")
-    Call<User> saveUsers(@Body User user);
+    Call<AuthResponse> saveUsers(@Body User user);
 
     @PUT("api/user/signIn/socialAuth")
-    Call<User> socialAuth(@Body User user);
+    Call<AuthResponse> socialAuth(@Body User user);
 
     @PUT("api/user/signIn/socialAuthInfo")
-    Call<User> socialAuthInfo(@Body User user);
+    Call<AuthResponse> socialAuthInfo(@Body User user);
 }

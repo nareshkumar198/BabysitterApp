@@ -1,18 +1,16 @@
 package com.example.demoproject.model;
 
-import java.io.Serializable;
-
-
-public class User implements Serializable {
-
+public class AuthResponse {
     private String city;
     private int communicationMode;
     private String email;
-    private String password;
+    private String expiresIn;
     private String firstName;
+    private String idToken;
     private String lastName;
     private String phone;
     private String photoUrl;
+    private String refreshToken;
     private String socialId;
     private String state;
     private String status;
@@ -43,12 +41,12 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getExpiresIn() {
+        return expiresIn;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setExpiresIn(String expiresIn) {
+        this.expiresIn = expiresIn;
     }
 
     public String getFirstName() {
@@ -59,6 +57,14 @@ public class User implements Serializable {
         this.firstName = firstName;
     }
 
+    public String getIdToken() {
+        return idToken;
+    }
+
+    public void setIdToken(String idToken) {
+        this.idToken = idToken;
+    }
+
     public String getLastName() {
         return lastName;
     }
@@ -66,8 +72,6 @@ public class User implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-
 
     public String getPhone() {
         return phone;
@@ -85,6 +89,13 @@ public class User implements Serializable {
         this.photoUrl = photoUrl;
     }
 
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
 
     public String getSocialId() {
         return socialId;
