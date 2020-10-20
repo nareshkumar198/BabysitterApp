@@ -498,51 +498,16 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="40dp"
             android:background="@drawable/custom_loginpage_button"
             android:text="Sign Up"
             android:textColor="@android:color/background_light"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/button4"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/communicationMode"
             tools:ignore="MissingConstraints" />
-
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="4dp"
-            android:background="@drawable/custom_google_buttion"
-            android:drawableLeft="@drawable/google"
-            android:paddingLeft="10dp"
-            android:text="continue with google"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toTopOf="@+id/button5"
-            app:layout_constraintEnd_toEndOf="@+id/button"
-            app:layout_constraintStart_toStartOf="@+id/button"
-            app:layout_constraintTop_toBottomOf="@+id/button" />
-
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="60dp"
-            android:background="@drawable/custom_facebook_button"
-            android:drawableLeft="@drawable/facebookicon"
-            android:paddingLeft="10dp"
-            android:text="continue with facebook"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/button4"
-            app:layout_constraintHorizontal_bias="0.474"
-            app:layout_constraintStart_toStartOf="@+id/button4"
-            app:layout_constraintTop_toBottomOf="@+id/button4" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
