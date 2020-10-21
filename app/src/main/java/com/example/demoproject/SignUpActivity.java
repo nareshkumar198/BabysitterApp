@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.demoproject.ApiClient.ApiClient;
+import com.example.demoproject.ApiClient.Md5;
 import com.example.demoproject.model.AuthResponse;
 import com.example.demoproject.model.User;
 
@@ -119,6 +120,10 @@ public class SignUpActivity extends AppCompatActivity {
             phoneNo.requestFocus();
             return;
         }
+        Md5 md5 = new Md5(password.getText().toString());
+        String a =  md5.getMd5();
+        user.setPassword(a);
+        password.setText(user.getPassword());
 
     }
 
