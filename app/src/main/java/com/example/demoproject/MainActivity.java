@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.demoproject.ApiClient.ApiClient;
 import com.example.demoproject.ApiClient.Md5;
+import com.example.demoproject.model.AuthResponse;
 import com.example.demoproject.model.Credentials;
 import com.example.demoproject.model.User;
 
@@ -69,40 +70,15 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        /*
-        Login form velidtion
-//         */
-//        login.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                SignIn signIn = new SignIn();
-//                signIn.setEmail(email.getText().toString());
-//                signIn.setPassword(password.getText().toString());
-//                validateLogin(signIn);
-//            }
-//        });
-//    }
-//    private Boolean validateLogin(SignIn signIn){
-//        if (signIn.getEmail() == null || signIn.getEmail().trim().length() == 0){
-//            email.setError("User Name is Required");
-//            email.requestFocus();
-//
-//        }
-//        if (signIn.getPassword() == null || signIn.getPassword().length() == 0){
-//            password.setError("Password Is Required");
-//            password.requestFocus();
-//        }
-//        return true;
-//
-//    }
+
     }
     public void logiUser(Credentials credentials){
-        Call<User> loginResponseCall = ApiClient.getService().loginUser(credentials);
-        loginResponseCall.enqueue(new Callback<User>() {
+        Call<AuthResponse> loginResponseCall = ApiClient.getService().loginUser(credentials);
+        loginResponseCall.enqueue(new Callback<AuthResponse>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
                 if (response.isSuccessful()){
-                    User loginResponse = response.body();
+                    AuthResponse loginResponse = response.body();
                     startActivity(new Intent(MainActivity.this, AfterLoginActivity.class));
                     finish();
 
@@ -114,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<AuthResponse> call, Throwable t) {
                 String message = t.getLocalizedMessage();
                 Toast.makeText(MainActivity.this,message, Toast.LENGTH_LONG).show();
 

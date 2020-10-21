@@ -11,12 +11,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Verifyemail"></activity>
-        <activity android:name=".AfterLoginActivity" />
-        <activity android:name=".SignUpActivity" />
+        <activity
+            android:name=".Verifyemail">
+        </activity>
+
+        <activity
+            android:name=".AfterLoginActivity" >
+        </activity>
+
+        <activity
+            android:name=".SignUpActivity" >
+
+        </activity>
         <activity
             android:name=".privacyActivity"
-            android:label="Privacy Policy" />
+            android:label="Privacy Policy" >
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:label="Log In">
+        </activity>
+
         <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,9 +40,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:label="Log In" />
+
+
+
     </application>
 
 </manifest>
