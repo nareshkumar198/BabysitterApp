@@ -6,7 +6,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    public static Retrofit getRetrofit(){
+    public static Retrofit getRetrofit() {
 
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -19,17 +19,18 @@ public class ApiClient {
         return retrofit;
     }
 
-    public static UserService getService(){
+    public static UserService getService() {
         UserService userService = getRetrofit().create(UserService.class);
         return userService;
     }
-    public static FamilyService getFamilyService(){
+
+    public static FamilyService getFamilyService() {
         FamilyService familyService = getRetrofit().create(FamilyService.class);
         return familyService;
     }
-    public static BabySitterService getBabySitterService(){
+
+    public static BabySitterService getBabySitterService() {
         BabySitterService babySitterService = getRetrofit().create(BabySitterService.class);
         return babySitterService;
     }
-
 }

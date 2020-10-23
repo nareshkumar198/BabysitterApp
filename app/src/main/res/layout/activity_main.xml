@@ -116,7 +116,7 @@
             app:layout_constraintStart_toStartOf="@+id/logIn"
             app:layout_constraintTop_toBottomOf="@+id/logIn" />
 
-        <Button
+        <com.facebook.login.widget.LoginButton
             android:id="@+id/facebook"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -125,6 +125,8 @@
             android:background="@drawable/custom_facebook_button"
             android:drawableLeft="@drawable/facebookicon"
             android:paddingLeft="10dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:text="Continue With FaceBook"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -263,6 +265,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

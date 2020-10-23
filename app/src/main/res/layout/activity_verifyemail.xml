@@ -8,6 +8,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+       
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Verifyemail">
@@ -156,6 +157,18 @@
             app:srcCompat="@drawable/logo"
             tools:ignore="MissingConstraints" />
 
+    <TextView
+        android:id="@+id/emailShow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView45"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.541"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView46"
+        app:layout_constraintVertical_bias="0.415" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

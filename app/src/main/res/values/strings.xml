@@ -6,4 +6,7 @@
         <item> Email</item>
     </string-array>
 
+    <string name="facebook_app_id">625362004810071</string>
+    <string name="fb_login_protocol_scheme">fb625362004810071</string>
+
 </resources>

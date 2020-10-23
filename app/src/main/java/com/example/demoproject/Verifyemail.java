@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.demoproject.ApiClient.ApiClient;
@@ -21,6 +22,7 @@ public class Verifyemail extends AppCompatActivity {
 
     private EditText code;
     private Button submit;
+    private TextView emailShow;
 
     Credentials credentials = new Credentials();
 
@@ -32,6 +34,7 @@ public class Verifyemail extends AppCompatActivity {
 
         code = findViewById(R.id.code);
         submit = findViewById(R.id.submit);
+        emailShow = findViewById(R.id.emailShow);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +48,7 @@ public class Verifyemail extends AppCompatActivity {
 
     public void codeSign(){
         credentials.setSecretCode(code.getText().toString());
+        credentials.setEmail(emailShow.getText().toString());
 
         if (credentials.getSecretCode().isEmpty()){
             code.setError("Please Enter Your Code");
