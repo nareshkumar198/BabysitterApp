@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/Appointments_menu"
+        android:title="Appointments"
+        app:showAsAction="always"
+
+
+        />
+    <item
+    android:id="@+id/Babysitter_menu"
+    android:title="Babysitter"
+    app:showAsAction="always"
+
+    />
+    <item
+        android:id="@+id/editprofile_menu"
+        android:title="EditProfile"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/logout_menu"
+        android:title="LogOut"
+        app:showAsAction="ifRoom"
+        />
+
+
+</menu>

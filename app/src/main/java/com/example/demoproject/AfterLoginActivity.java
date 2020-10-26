@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -26,14 +29,14 @@ import retrofit2.Response;
 
 
 public class AfterLoginActivity extends AppCompatActivity {
-    private Button outSign;
+
   GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_after_login);
-        outSign = findViewById(R.id.signOut);
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -47,12 +50,6 @@ public class AfterLoginActivity extends AppCompatActivity {
             Log.e("TAG","hello" + loginResponse.getEmail().toString());
         }
 
-        outSign.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signOut();
-            }
-        });
     }
     private void signOut() {
         mGoogleSignInClient.signOut()
@@ -63,5 +60,29 @@ public class AfterLoginActivity extends AppCompatActivity {
                         finish();
                     }
                 });
+    }
+    /*
+   Home Page Menu Section
+    */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.afterloginmenu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected( MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.Appointments_menu:
+                Intent appointmentsIntent = new Intent(String.valueOf(AfterLoginActivity.class));
+                startActivity(appointmentsIntent);
+                break;
+            case R.id.logout_menu:
+                signOut();
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

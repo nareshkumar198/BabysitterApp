@@ -11,16 +11,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ResetPasswordActivity"></activity>
-        <activity android:name=".Verifyemail"></activity>
-        <activity android:name=".AfterLoginActivity"></activity>
-        <activity android:name=".SignUpActivity"></activity>
+        <activity android:name=".ResetPasswordActivity">
+
+        </activity>
+        <activity android:name=".Verifyemail">
+
+        </activity>
+        <activity android:name=".AfterLoginActivity"
+            android:label="BabySitter">
+
+        </activity>
+        <activity android:name=".SignUpActivity">
+
+        </activity>
         <activity
             android:name=".privacyActivity"
-            android:label="Privacy Policy"></activity>
+            android:label="Privacy Policy">
+            
+        </activity>
         <activity
             android:name=".MainActivity"
-            android:label="Log In"></activity>
+            android:label="Log In">
+
+        </activity>
         <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
