@@ -1,5 +1,7 @@
 package com.example.demoproject.model;
 
+import android.widget.Spinner;
+
 public class Babysitter {
 
     private int communicationMode;

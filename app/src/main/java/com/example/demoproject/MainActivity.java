@@ -18,19 +18,13 @@ import com.example.demoproject.ApiClient.Md5;
 import com.example.demoproject.model.AuthResponse;
 import com.example.demoproject.model.Credentials;
 import com.example.demoproject.model.User;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
+
 
 
 import java.lang.reflect.Array;
@@ -46,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private Button login , Btgoogle ;
     private GoogleSignInClient mGoogleSignInClient;
     private static int RC_SIGN_IN = 0;
-    private LoginButton loginButton;
+
 
     User user =  new User();
     @Override
@@ -59,8 +53,15 @@ public class MainActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         login = findViewById(R.id.logIn);
         Btgoogle = findViewById(R.id.google);
-        loginButton = findViewById(R.id.facebook);
         forgotPassword = findViewById(R.id.forgotPassword);
+
+        Btgoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signIn();
+//
+            }
+        });
 
         /**
          * Forgot Password Click Listener
@@ -110,17 +111,6 @@ public class MainActivity extends AppCompatActivity {
                     }
             }
         });
-
-        /**
-         * Google Button click Listener
-         */
-        Btgoogle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn();
-//
-            }
-        });
         /**
          * Google Login
          */
@@ -128,6 +118,11 @@ public class MainActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        /**
+         * Google Button click Listener
+         */
+
     }
 
     @Override
@@ -141,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         super.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
@@ -168,6 +162,11 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
+    /**
+     * Login Api Call
+     * @param credentials
+     */
     public void logiUser(Credentials credentials){
         Call<AuthResponse> loginResponseCall = ApiClient.getService().loginUser(credentials);
         loginResponseCall.enqueue(new Callback<AuthResponse>() {
