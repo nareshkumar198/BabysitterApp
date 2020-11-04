@@ -40,7 +40,11 @@ public class MainActivity extends AppCompatActivity {
     private Button login , Btgoogle ;
     private GoogleSignInClient mGoogleSignInClient;
     private static int RC_SIGN_IN = 0;
+<<<<<<< HEAD
     private Button loginButton;
+=======
+
+>>>>>>> b0f204e07c7ef282ae02e2a994fa12f85a377705
 
     User user =  new User();
     @Override
@@ -53,8 +57,15 @@ public class MainActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         login = findViewById(R.id.logIn);
         Btgoogle = findViewById(R.id.google);
-        loginButton = findViewById(R.id.facebook);
         forgotPassword = findViewById(R.id.forgotPassword);
+
+        Btgoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signIn();
+//
+            }
+        });
 
         /**
          * Forgot Password Click Listener
@@ -104,17 +115,6 @@ public class MainActivity extends AppCompatActivity {
                     }
             }
         });
-
-        /**
-         * Google Button click Listener
-         */
-        Btgoogle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn();
-//
-            }
-        });
         /**
          * Google Login
          */
@@ -122,6 +122,11 @@ public class MainActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        /**
+         * Google Button click Listener
+         */
+
     }
 
     @Override
@@ -135,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         super.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
@@ -162,6 +166,11 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
+    /**
+     * Login Api Call
+     * @param credentials
+     */
     public void logiUser(Credentials credentials){
         Call<AuthResponse> loginResponseCall = ApiClient.getService().loginUser(credentials);
         loginResponseCall.enqueue(new Callback<AuthResponse>() {
