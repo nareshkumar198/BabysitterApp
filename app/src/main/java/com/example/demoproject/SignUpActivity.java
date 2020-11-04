@@ -4,8 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -22,14 +23,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SignUpActivity extends AppCompatActivity {
+    String[] categoryDrop = {"Text/Message", "Email"};
     private TextView login;
     private EditText  emailId, reEmailId, password, rePassword, firstName, lastName, phoneNo;
-    private Spinner communication;
+    Spinner communication;
     private Button signUp;
 
     User user = new User();
-
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +43,27 @@ public class SignUpActivity extends AppCompatActivity {
         firstName = findViewById(R.id.first_name);
         lastName = findViewById(R.id.last_name);
         phoneNo = findViewById(R.id.phone_No);
-        communication = findViewById(R.id.communicationMode);
+        communication = (Spinner) findViewById(R.id.communicationMode);
         signUp = findViewById(R.id.signUp);
+
+
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryDrop);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        communication.setAdapter(adapter);
+
+        communication.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                communication.setSelection(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 /**
  * Login TextView go to Login Activity
@@ -80,7 +99,7 @@ public class SignUpActivity extends AppCompatActivity {
         user.setFirstName(firstName.getText().toString());
         user.setLastName(lastName.getText().toString());
         user.setPhone(phoneNo.getText().toString());
-
+        user.setCommunicationMode(communication.getSelectedItemPosition());
      // validation
 
      if (user.getEmail().isEmpty()){
