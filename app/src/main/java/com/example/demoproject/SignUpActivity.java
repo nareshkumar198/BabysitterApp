@@ -1,10 +1,12 @@
 package com.example.demoproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.demoproject.data.UserContract.UserEntry;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.demoproject.ApiClient.ApiClient;
 import com.example.demoproject.ApiClient.Md5;
+import com.example.demoproject.data.UserDbHelper;
 import com.example.demoproject.model.AuthResponse;
 import com.example.demoproject.model.User;
 
@@ -22,10 +25,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SignUpActivity extends AppCompatActivity {
+
     private TextView login;
     private EditText  emailId, reEmailId, password, rePassword, firstName, lastName, phoneNo;
     private Spinner communication;
     private Button signUp;
+
 
     User user = new User();
 
@@ -35,16 +40,20 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        login = findViewById(R.id.sign_login);
-        emailId = findViewById(R.id.signUp_Email);
-        reEmailId = findViewById(R.id.signUp_reEmail);
-        password = findViewById(R.id.signUp_Password);
-        rePassword = findViewById(R.id.re_enterpassword);
-        firstName = findViewById(R.id.first_name);
-        lastName = findViewById(R.id.last_name);
-        phoneNo = findViewById(R.id.phone_No);
-        communication = findViewById(R.id.communicationMode);
-        signUp = findViewById(R.id.signUp);
+
+
+        login = (TextView) findViewById(R.id.sign_login);
+        emailId =  (EditText) findViewById(R.id.signUp_Email);
+        reEmailId = (EditText)findViewById(R.id.signUp_reEmail);
+        password = (EditText)findViewById(R.id.signUp_Password);
+        rePassword = (EditText)findViewById(R.id.re_enterpassword);
+        firstName = (EditText)findViewById(R.id.first_name);
+        lastName = (EditText)findViewById(R.id.last_name);
+        phoneNo = (EditText)findViewById(R.id.phone_No);
+        signUp = (Button)findViewById(R.id.signUp);
+        communication = (Spinner)findViewById(R.id.communicationMode);
+
+
 
 /**
  * Login TextView go to Login Activity
@@ -69,7 +78,15 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
+
+
+
     }
+
+
+
+
+
 
     public void userSignUp(){
 
@@ -124,6 +141,30 @@ public class SignUpActivity extends AppCompatActivity {
         String a =  md5.getMd5();
         user.setPassword(a);
         password.setText(user.getPassword());
+
+        UserDbHelper mDbHelper = new UserDbHelper(this);
+
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+
+
+        ContentValues values = new ContentValues();
+        values.put(UserEntry.COLUMN_USER_EMAIL, String.valueOf(emailId));
+        values.put(UserEntry.COLUMN_USER_PASSWORD, String.valueOf(password));
+        values.put(UserEntry.COLUMN_USER_FIRSTNAME, String.valueOf(firstName));
+        values.put(UserEntry.COLUMN_USER_LASTNAME, String.valueOf(lastName));
+        values.put(UserEntry.COLUMN_USER_PHONENO, String.valueOf(phoneNo));
+
+        long newRowId = db.insert(UserEntry.TABLE_NAME, null, values);
+
+         //Show a toast message depending on whether or not the insertion was successful
+        if (newRowId == -1) {
+            // If the row ID is -1, then there was an error with insertion.
+            Toast.makeText(this, "Error with saving pet", Toast.LENGTH_SHORT).show();
+       } else {
+            // Otherwise, the insertion was successful and we can display a toast with the row ID.
+           Toast.makeText(this, "Pet saved with row id: " + newRowId, Toast.LENGTH_SHORT).show();
+        }
 
     }
 
