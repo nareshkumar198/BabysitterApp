@@ -40,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
     private Button login , Btgoogle ;
     private GoogleSignInClient mGoogleSignInClient;
     private static int RC_SIGN_IN = 0;
+<<<<<<< HEAD
+=======
+    private Button loginButton;
+
+
+>>>>>>> 4c59a01e4c37c602e1dd25fb8f614be9b41baf79
 
     private Button loginButton;
     User user =  new User();

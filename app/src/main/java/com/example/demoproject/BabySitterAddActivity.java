@@ -17,14 +17,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BabySitterAddActivity extends AppCompatActivity {
+     String[] commMode = {"Message/Text", "Email", "Both"};
      TextView rankBabysitter, firstNameBabysitter, lastNameBabysitter, phoneBabysitter, emailBabysitter;
-    Spinner communicationMode;
+     Spinner communicationMode;
      Button saveBabysitter;
      Button clearBabysitter;
      Babysitter babysitter = new Babysitter();
 
-
-    @Override
+     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_baby_sitter_add);
@@ -38,6 +38,7 @@ public class BabySitterAddActivity extends AppCompatActivity {
         saveBabysitter = findViewById(R.id.saveBabysitter);
         clearBabysitter = findViewById(R.id.clearBabysitter);
         //Spinner
+<<<<<<< HEAD
         communicationMode = findViewById(R.id.addBabysitter_spinner);
 
         List<String> commMode = new ArrayList<String>();
@@ -47,6 +48,13 @@ public class BabySitterAddActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, commMode);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         communicationMode.setAdapter(arrayAdapter);
+=======
+        communicationMode = (Spinner) findViewById(R.id.addBabysitter_spinner);
+
+        ArrayAdapter  adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, commMode);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        communicationMode.setAdapter(adapter);
+>>>>>>> 4c59a01e4c37c602e1dd25fb8f614be9b41baf79
 
         communicationMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -81,7 +89,7 @@ public class BabySitterAddActivity extends AppCompatActivity {
     }
     public void saveBabysitter(){
 
-//        babysitter.setCommunicationMode(communicationMode);
+        babysitter.setCommunicationMode(communicationMode.getSelectedItemPosition());
         babysitter.setFirstName(firstNameBabysitter.getText().toString());
         babysitter.setLastName(lastNameBabysitter.getText().toString());
         babysitter.setPhone(phoneBabysitter.getText().toString());

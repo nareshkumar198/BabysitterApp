@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">DemoProject</string>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4c59a01e4c37c602e1dd25fb8f614be9b41baf79
 <!--    <string-array name="spinner_item">-->
 <!--        <item> Text/message</item>-->
 <!--        <item> Email</item>-->
@@ -8,12 +11,8 @@
 
 <!--    <string name="facebook_app_id">625362004810071</string>-->
 <!--    <string name="fb_login_protocol_scheme">fb625362004810071</string>-->
-=======
-    <string-array name="spinner_item">
-        <item> Text/message</item>
-        <item> Email</item>
-    </string-array>
 
+<<<<<<< HEAD
 <!--    <string name="facebook_app_id">625362004810071</string>-->
 <!--    <string name="fb_login_protocol_scheme">fb625362004810071</string>-->
 
@@ -23,5 +22,12 @@
         <item> Both</item>
     </string-array>
 
+=======
+<!--    <string-array name="Babysitter_spinner_item">-->
+<!--        <item> Text/message</item>-->
+<!--        <item> Email</item>-->
+<!--        <item> Both</item>-->
+<!--    </string-array>-->
+>>>>>>> 4c59a01e4c37c602e1dd25fb8f614be9b41baf79
 
 </resources>
