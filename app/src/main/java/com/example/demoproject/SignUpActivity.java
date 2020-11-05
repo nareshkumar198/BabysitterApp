@@ -79,7 +79,6 @@ public class SignUpActivity extends AppCompatActivity {
         /**
          * SignUp Button
           */
-
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,7 +86,6 @@ public class SignUpActivity extends AppCompatActivity {
                 saveUsers(user);
             }
         });
-
     }
 
     public void userSignUp(){

@@ -40,12 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private Button login , Btgoogle ;
     private GoogleSignInClient mGoogleSignInClient;
     private static int RC_SIGN_IN = 0;
-<<<<<<< HEAD
+
     private Button loginButton;
-=======
-
->>>>>>> b0f204e07c7ef282ae02e2a994fa12f85a377705
-
     User user =  new User();
     @Override
     protected void onCreate(Bundle savedInstanceState) {

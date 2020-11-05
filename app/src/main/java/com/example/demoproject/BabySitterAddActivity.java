@@ -39,6 +39,7 @@ public class BabySitterAddActivity extends AppCompatActivity {
         clearBabysitter = findViewById(R.id.clearBabysitter);
         //Spinner
         communicationMode = findViewById(R.id.addBabysitter_spinner);
+
         List<String> commMode = new ArrayList<String>();
         commMode.add("Message/Text");
         commMode.add("Email");

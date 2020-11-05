@@ -3,7 +3,9 @@ package com.example.demoproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -11,6 +13,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,12 +26,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.Calendar;
 
-public class AfterLoginActivity extends AppCompatActivity {
+
+public class AfterLoginActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
   GoogleSignInClient mGoogleSignInClient;
   private Button showPastAppointments , scheduleAppointment , hidePastAppoi;
   private LinearLayout hidePostLinear , linearBabysitter;
+    private TextView date;
+    private ImageView calendar;
 
 
     @Override
@@ -40,6 +48,8 @@ public class AfterLoginActivity extends AppCompatActivity {
         hidePostLinear = findViewById(R.id.hide_post_linear);
         linearBabysitter = findViewById(R.id.linear_Babysitter);
         hidePastAppoi = findViewById(R.id.hide_Past_Appoi);
+        date = findViewById(R.id.date);
+        calendar = findViewById(R.id.clander);
 
 
         showPastAppointments.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +75,12 @@ public class AfterLoginActivity extends AppCompatActivity {
                 showPastAppointments.setVisibility(View.VISIBLE);
                 hidePostLinear.setVisibility(View.GONE);
 
+            }
+        });
+        calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
             }
         });
 
@@ -127,5 +143,25 @@ public class AfterLoginActivity extends AppCompatActivity {
     public void clickHere(View view) {
         Intent clickIntent = new Intent(AfterLoginActivity.this, BabySitterActivity.class);
         startActivity(clickIntent);
+    }
+
+    /**
+     * date Picker
+     */
+    private void showDatePickerDialog(){
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, this
+                , Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+        );
+        datePickerDialog.show();
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        String datecalender =  month +"/"+dayOfMonth + "/"+ year;
+//        dateset.setText(date);
+        date.setText(datecalender);
+
     }
 }
