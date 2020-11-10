@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +18,7 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.demoproject.model.User;
@@ -33,8 +35,10 @@ public class AfterLoginActivity extends AppCompatActivity implements DatePickerD
 
   GoogleSignInClient mGoogleSignInClient;
   private Button showPastAppointments , scheduleAppointment , hidePastAppoi;
-  private LinearLayout hidePostLinear , linearBabysitter;
-    private TextView date;
+  private LinearLayout hidePostLinear , linearBabysitter , linearTimeDate;
+    TimePicker timePicker, endTimePicker;
+    TextView time , endTime, timeDuration;
+    private TextView dateSelect;
     private ImageView calendar;
 
 
@@ -47,10 +51,43 @@ public class AfterLoginActivity extends AppCompatActivity implements DatePickerD
         scheduleAppointment = findViewById(R.id.scheduleAppointment);
         hidePostLinear = findViewById(R.id.hide_post_linear);
         linearBabysitter = findViewById(R.id.linear_Babysitter);
+        linearTimeDate = findViewById(R.id.linear_time_date);
         hidePastAppoi = findViewById(R.id.hide_Past_Appoi);
-        date = findViewById(R.id.date);
-        calendar = findViewById(R.id.clander);
+        calendar = findViewById(R.id.calendar);
+        dateSelect = findViewById(R.id.dateSelect);
 
+
+        /**
+         * Time Picker Function
+         */
+        time = findViewById(R.id.timeShow);
+        timePicker = findViewById(R.id.timePicker);
+        timeDuration = findViewById(R.id.timeDuration);
+
+        timePicker.setIs24HourView(false);
+        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                String minAndSec = hourOfDay + ":" + minute;
+                String startTime = "<font color = '#000000'>" +minAndSec +"</font>";
+                time.setText(Html.fromHtml("Start Time :" + startTime));
+            }
+        });
+        endTimePicker = findViewById(R.id.endTimePicker);
+        endTime = findViewById(R.id.endTime);
+        endTimePicker.setIs24HourView(false);
+        endTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                String minAndSec = hourOfDay + ":" + minute  ;
+                String Time = "<font color = '#00000'>" + minAndSec +"</font>";
+                endTime.setText(Html.fromHtml("End Time :" + Time));
+            }
+        });
+
+/*
+end time picker function
+ */
 
         showPastAppointments.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +101,7 @@ public class AfterLoginActivity extends AppCompatActivity implements DatePickerD
             @Override
             public void onClick(View view) {
                 linearBabysitter.setVisibility(View.VISIBLE);
+                linearTimeDate.setVisibility(View.VISIBLE);
                 scheduleAppointment.setVisibility(View.GONE);
 
             }
@@ -91,11 +129,11 @@ public class AfterLoginActivity extends AppCompatActivity implements DatePickerD
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
 
-        Intent intent = getIntent();
-        if (intent.getExtras() != null){
-            User loginResponse = (User) intent.getSerializableExtra("data");
-            Log.e("TAG","hello" + loginResponse.getEmail().toString());
-        }
+//        Intent intent = getIntent();
+//        if (intent.getExtras() != null){
+//            User loginResponse = (User) intent.getSerializableExtra("data");
+//            Log.e("TAG","hello" + loginResponse.getEmail().toString());
+//        }
 
     }
     private void signOut() {
@@ -161,7 +199,7 @@ public class AfterLoginActivity extends AppCompatActivity implements DatePickerD
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         String datecalender =  month +"/"+dayOfMonth + "/"+ year;
 //        dateset.setText(date);
-        date.setText(datecalender);
+        dateSelect.setText(datecalender);
 
     }
 }

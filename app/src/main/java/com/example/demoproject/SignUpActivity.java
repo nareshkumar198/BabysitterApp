@@ -160,9 +160,12 @@ public class SignUpActivity extends AppCompatActivity {
                         startActivity(new Intent(SignUpActivity.this, Verifyemail.class));
                         finish();
                     }
-                else {
-                    String message = "User already exists but not confirmed";
+                else if  (response.code() == 403){
+                    String message = "User with this email id already registered";
                     Toast.makeText(SignUpActivity.this, message, Toast.LENGTH_LONG).show();
+                }
+                else {
+
                 }
 
                 }

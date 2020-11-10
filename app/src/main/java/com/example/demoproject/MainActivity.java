@@ -40,14 +40,9 @@ public class MainActivity extends AppCompatActivity {
     private Button login , Btgoogle ;
     private GoogleSignInClient mGoogleSignInClient;
     private static int RC_SIGN_IN = 0;
-<<<<<<< HEAD
-=======
-    private Button loginButton;
-
-
->>>>>>> 4c59a01e4c37c602e1dd25fb8f614be9b41baf79
 
     private Button loginButton;
+
     User user =  new User();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,8 +186,16 @@ public class MainActivity extends AppCompatActivity {
                     String message = "Email is not registered";
                     Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
                 }
+                else if(response.code() == 423) {
+                    String message = "Please complete the registration proces";
+                    Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+                    Intent verifyIntent = new Intent(MainActivity.this, Verifyemail.class);
+                    startActivity(verifyIntent);
+                } else if(response.code() == 400) {
+                    String message = "This email is registered using Google/FB" ;
+                    Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+                }
             }
-
             @Override
             public void onFailure(Call<AuthResponse> call, Throwable t) {
                 String message = t.getLocalizedMessage();

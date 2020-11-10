@@ -38,7 +38,7 @@ public class BabySitterAddActivity extends AppCompatActivity {
         saveBabysitter = findViewById(R.id.saveBabysitter);
         clearBabysitter = findViewById(R.id.clearBabysitter);
         //Spinner
-<<<<<<< HEAD
+
         communicationMode = findViewById(R.id.addBabysitter_spinner);
 
         List<String> commMode = new ArrayList<String>();
@@ -48,13 +48,13 @@ public class BabySitterAddActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, commMode);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         communicationMode.setAdapter(arrayAdapter);
-=======
+
         communicationMode = (Spinner) findViewById(R.id.addBabysitter_spinner);
 
         ArrayAdapter  adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, commMode);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         communicationMode.setAdapter(adapter);
->>>>>>> 4c59a01e4c37c602e1dd25fb8f614be9b41baf79
+
 
         communicationMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
