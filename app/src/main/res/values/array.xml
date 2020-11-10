@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array_commode_options">
+        <item>@string/commode_text</item>
+        <item>@string/commode_email</item>
+    </string-array>
+
+    <string-array name="array_babysitter_commode_options">
+        <item>@string/babysitter_commode_text</item>
+        <item>@string/babysitter_commode_email</item>
+        <item>@string/babysitter_commode_both</item>
+    </string-array>
+
+
+
+</resources>
