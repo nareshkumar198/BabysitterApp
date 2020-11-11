@@ -16,8 +16,8 @@ public final class UserContract {
         public final static String COLUMN_USER_PHONENO = "phoneno";
         public final static String COLUMN_USER_COMM_MODE = "commode";
 
-        public static final int COMM_MODE_TEXT = 1;
-        public static final int COMM_MODE_EMAIL = 2;
+        public static final int COMM_MODE_TEXT = 0;
+        public static final int COMM_MODE_EMAIL = 1;
     }
 }
 
