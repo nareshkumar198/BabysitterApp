@@ -11,6 +11,13 @@
         <item>@string/babysitter_commode_both</item>
     </string-array>
 
+    //complete the registration process
+
+    <string-array name="array_complete_registration_options">
+        <item>@string/complete_registration_text</item>
+        <item>@string/complete_registration_email</item>
+    </string-array>
+
 
 
 </resources>

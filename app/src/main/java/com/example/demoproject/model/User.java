@@ -18,6 +18,7 @@ public class User implements Serializable {
     private String status;
     private TimeZone timeZone;
     private String zipCode;
+    private boolean eulaNotCurrent;
 
     public String getCity() {
         return city;
@@ -66,8 +67,6 @@ public class User implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-
 
     public String getPhone() {
         return phone;
@@ -125,4 +124,13 @@ public class User implements Serializable {
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
+
+    public boolean isEulaNotCurrent() {
+        return eulaNotCurrent;
+    }
+
+    public void setEulaNotCurrent(boolean eulaNotCurrent) {
+        this.eulaNotCurrent = eulaNotCurrent;
+    }
+
 }

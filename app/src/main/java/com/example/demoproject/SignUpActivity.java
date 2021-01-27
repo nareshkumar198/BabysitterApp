@@ -2,13 +2,17 @@ package com.example.demoproject;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,15 +23,28 @@ import com.example.demoproject.data.UserContract;
 import com.example.demoproject.data.UserDbHelper;
 import com.example.demoproject.model.AuthResponse;
 import com.example.demoproject.model.User;
+
+import java.util.regex.Pattern;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 public class SignUpActivity extends AppCompatActivity {
+//private  static final Pattern PASSWORD_PATTERN = Pattern.compile("^"+
+//        "(?=.*[0-9])"+    //at least 1 digit
+//        "(?=.*[a-z])"+   // at least 1 lower case letter
+//        "(?=.*[A-Z])"+   // at least 1 upper case latter
+////        "(?=.*[a-zA-Z])"+// any letter
+////        "(?=.*[!@#$%^&*+=])"+
+//        "(?=\\s+$)"+      // no white space
+//        ".{6,12}"+          //at least 6 character
+//        "$");
     String[] categoryDrop = {"Text/Message", "Email"};
-private TextView login;
+private TextView login, termsService, privacyPolicy ;
 private EditText  emailId, reEmailId, password, rePassword, firstName, lastName, phoneNo;
         Spinner communication;
 private Button signUp;
+private CheckBox checkBox;
 private int mcomMode = UserContract.UserEntry.COMM_MODE_TEXT;
         User user = new User();
 protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +60,9 @@ protected void onCreate(Bundle savedInstanceState) {
         phoneNo = findViewById(R.id.phone_No);
         signUp = findViewById(R.id.signUp);
         communication = (Spinner) findViewById(R.id.communicationMode);
+        checkBox = findViewById(R.id.checkBoxPolicy);
+        termsService = findViewById(R.id.termsServiceup);
+        privacyPolicy = findViewById(R.id.privacyPolicy);
         setupSpinner();
 /**
  * Login TextView go to Login Activity
@@ -67,9 +87,9 @@ public void onClick(View view) {
         }
 private void setupSpinner() {
         // Create adapter for spinner. The list options are from the String array it will use
-        // the spinner will use the default layout
-        ArrayAdapter commodeSpinnerAdapter = ArrayAdapter.createFromResource(this,
-        R.array.array_commode_options, android.R.layout.simple_spinner_item);
+                // the spinner will use the default layout
+                ArrayAdapter commodeSpinnerAdapter = ArrayAdapter.createFromResource(this,
+                        R.array.array_commode_options, android.R.layout.simple_spinner_item);
 // Specify dropdown layout style - simple list view with 1 item per line
         commodeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 // Apply the adapter to the spinner
@@ -78,6 +98,7 @@ private void setupSpinner() {
         communication.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 @Override
 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//        communication.setSelection(position);
         String selection = (String) parent.getItemAtPosition(position);
         if (!TextUtils.isEmpty(selection)) {
         if (selection.equals(getString(R.string.commode_text))) {
@@ -93,36 +114,69 @@ public void onNothingSelected(AdapterView<?> parent) {
         mcomMode = UserContract.UserEntry.COMM_MODE_TEXT;
         }
         });
+
+        termsService.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                        startActivity(new Intent(SignUpActivity.this, TermsService.class));
+                }
+        });
+
+        privacyPolicy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                        startActivity(new Intent(SignUpActivity.this, PrivacyPolicy.class));
+                }
+        });
         }
 public void userSignUp() {
+        user.setCommunicationMode(communication.getSelectedItemPosition());
         user.setEmail(emailId.getText().toString());
-        user.setEmail(reEmailId.getText().toString());
         user.setPassword(password.getText().toString());
-        user.setPassword(rePassword.getText().toString());
         user.setFirstName(firstName.getText().toString());
         user.setLastName(lastName.getText().toString());
         user.setPhone(phoneNo.getText().toString());
+        user.setEulaNotCurrent(checkBox.callOnClick());
+        if (checkBox.isChecked()){
+
+        }
+
+
+
 // validation
         if (user.getEmail().isEmpty()) {
         emailId.setError("Please Enter Your Email");
         emailId.requestFocus();
         return;
         }
+        else if(!Patterns.EMAIL_ADDRESS.matcher(user.getEmail()).matches()){
+                emailId.setError("Please Enter Valid Email Address");
+        }
         if (user.getEmail().isEmpty()) {
         reEmailId.setError("Please Enter Your Email Again");
         reEmailId.requestFocus();
         return;
         }
-        if (user.getPassword().isEmpty()) {
-        password.setError("Please Enter Your Password");
+        else if(!Patterns.EMAIL_ADDRESS.matcher(user.getEmail()).matches()){
+                reEmailId.setError("Please Enter Valid Email Address");
+        }
+        if (user.getPassword().isEmpty() || password.length()< 6) {
+        password.setError("Enter Your Password your Password Should we 6 character long");
         password.requestFocus();
         return;
         }
-        if (user.getPassword().isEmpty()) {
+//        if(!PASSWORD_PATTERN.matcher(user.getPassword()).matches()){
+//                password.setError("Password To week");
+//        }
+        if (user.getPassword().isEmpty() || rePassword.length()< 6) {
         rePassword.setError("Please Enter Your Password");
         rePassword.requestFocus();
         return;
         }
+
+//        if(!PASSWORD_PATTERN.matcher(user.getPassword()).matches()){
+//                password.setError("Password To week");
+//        }
         if (user.getFirstName().isEmpty()) {
         firstName.setError("Please Enter Your FirstName");
         firstName.requestFocus();
@@ -138,33 +192,31 @@ public void userSignUp() {
         phoneNo.requestFocus();
         return;
         }
+
         Md5 md5 = new Md5(password.getText().toString());
         String a = md5.getMd5();
         user.setPassword(a);
         password.setText(user.getPassword());
-        UserDbHelper mDbHelper = new UserDbHelper(this);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(UserContract.UserEntry.COLUMN_USER_EMAIL, String.valueOf(emailId.getText().toString()));
-        values.put(UserContract.UserEntry.COLUMN_USER_PASSWORD, String.valueOf(password.getText().toString()));
-        values.put(UserContract.UserEntry.COLUMN_USER_FIRSTNAME, String.valueOf(firstName.getText().toString()));
-        values.put(UserContract.UserEntry.COLUMN_USER_LASTNAME, String.valueOf(lastName.getText().toString()));
-        values.put(UserContract.UserEntry.COLUMN_USER_PHONENO, String.valueOf(phoneNo.getText().toString()));
-        values.put(UserContract.UserEntry.COLUMN_USER_COMM_MODE, String.valueOf(mcomMode));
-        long newRowId = db.insert(UserContract.UserEntry.TABLE_NAME, null, values);
-//Show a toast message depending on whether or not the insertion was successful
-        if (newRowId == -1) {
-        // If the row ID is -1, then there was an error with insertion.
-        Toast.makeText(this, "Error with saving pet", Toast.LENGTH_SHORT).show();
-        }else {
-        // Otherwise, the insertion was successful and we can display a toast with the row ID.
-        Toast.makeText(this, "User saved with row id: " + newRowId, Toast.LENGTH_SHORT).show();
+//        UserDbHelper mDbHelper = new UserDbHelper(this);
+//        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put(UserContract.UserEntry.COLUMN_USER_EMAIL, String.valueOf(emailId.getText().toString()));
+//        values.put(UserContract.UserEntry.COLUMN_USER_PASSWORD, String.valueOf(password.getText().toString()));
+//        values.put(UserContract.UserEntry.COLUMN_USER_FIRSTNAME, String.valueOf(firstName.getText().toString()));
+//        values.put(UserContract.UserEntry.COLUMN_USER_LASTNAME, String.valueOf(lastName.getText().toString()));
+//        values.put(UserContract.UserEntry.COLUMN_USER_PHONENO, String.valueOf(phoneNo.getText().toString()));
+//        values.put(UserContract.UserEntry.COLUMN_USER_COMM_MODE, String.valueOf(mcomMode));
+//        long newRowId = db.insert(UserContract.UserEntry.TABLE_NAME, null, values);
+////Show a toast message depending on whether or not the insertion was successful
+//        if (newRowId == -1) {
+//        // If the row ID is -1, then there was an error with insertion.
+//        Toast.makeText(this, "Error with saving pet", Toast.LENGTH_SHORT).show();
+//        }else {
+//        // Otherwise, the insertion was successful and we can display a toast with the row ID.
+//        Toast.makeText(this, "User saved with row id: " + newRowId, Toast.LENGTH_SHORT).show();
+//        }
         }
-        }
-
-
-
-/**
+        /**
  * Call API
  * @param user
  */

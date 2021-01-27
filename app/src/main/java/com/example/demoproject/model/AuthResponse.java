@@ -16,6 +16,7 @@ public class AuthResponse {
     private String status;
     private TimeZone timeZone;
     private String zipCode;
+    private boolean eulaNotCurrent;
 
     public String getCity() {
         return city;
@@ -135,5 +136,13 @@ public class AuthResponse {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public boolean isEulaNotCurrent() {
+        return eulaNotCurrent;
+    }
+
+    public void setEulaNotCurrent(boolean eulaNotCurrent) {
+        this.eulaNotCurrent = eulaNotCurrent;
     }
 }

@@ -38,8 +38,7 @@ public class BabySitterAddActivity extends AppCompatActivity {
         saveBabysitter = findViewById(R.id.saveBabysitter);
         clearBabysitter = findViewById(R.id.clearBabysitter);
         //Spinner
-
-        communicationMode = findViewById(R.id.addBabysitter_spinner);
+         communicationMode = findViewById(R.id.addBabysitter_spinner);
 
         List<String> commMode = new ArrayList<String>();
         commMode.add("Message/Text");
@@ -88,8 +87,8 @@ public class BabySitterAddActivity extends AppCompatActivity {
         });
     }
     public void saveBabysitter(){
-
-        babysitter.setCommunicationMode(communicationMode.getSelectedItemPosition());
+         babysitter.setRanking(rankBabysitter.getInputType());
+         babysitter.setCommunicationMode(communicationMode.getSelectedItemPosition());
         babysitter.setFirstName(firstNameBabysitter.getText().toString());
         babysitter.setLastName(lastNameBabysitter.getText().toString());
         babysitter.setPhone(phoneBabysitter.getText().toString());

@@ -36,9 +36,9 @@ public interface UserService {
     @POST("api/user/signUp")
     Call<AuthResponse> saveUsers(@Body User user);
 
-    @PUT("api/user/signIn/socialAuth")
+    @PUT("api/user/socialAuth")
     Call<AuthResponse> socialAuth(@Body User user);
 
-    @PUT("api/user/signIn/socialAuthInfo")
+    @PUT("api/user/socialAuthInfo")
     Call<AuthResponse> socialAuthInfo(@Body User user);
 }

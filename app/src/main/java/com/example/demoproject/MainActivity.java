@@ -1,9 +1,11 @@
 package com.example.demoproject;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,6 +20,11 @@ import com.example.demoproject.ApiClient.Md5;
 import com.example.demoproject.model.AuthResponse;
 import com.example.demoproject.model.Credentials;
 import com.example.demoproject.model.User;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -37,11 +44,11 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
     private TextView signUp, forgotPassword;
     private EditText email , password;
-    private Button login , Btgoogle ;
+    private Button login, Btgoogle, faceBook ;
     private GoogleSignInClient mGoogleSignInClient;
     private static int RC_SIGN_IN = 0;
-
     private Button loginButton;
+    CallbackManager callbackManager;
 
     User user =  new User();
     @Override
@@ -55,14 +62,64 @@ public class MainActivity extends AppCompatActivity {
         login = findViewById(R.id.logIn);
         Btgoogle = findViewById(R.id.google);
         forgotPassword = findViewById(R.id.forgotPassword);
+        faceBook = findViewById(R.id.facebook);
+
+        callbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+//                Call<AuthResponse> loginResponseCall = ApiClient.getService().socialAuth(user);
+                Call<AuthResponse> loginResponseCall = ApiClient.getService().socialAuth(user);
+                loginResponseCall.enqueue(new Callback<AuthResponse>() {
+                    @Override
+                    public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                        if (response.isSuccessful()) {
+                            AuthResponse loginResponse = response.body();
+//                    Log.d("user", response.body().toString());
+                            startActivity(new Intent(MainActivity.this, AfterLoginActivity.class));
+                            finish();
+
+                        } else if (response.code() == 400) {
+//                            startActivity(new Intent(MainActivity.this, AfterLoginActivity.class));
+//                            finish();
+                            String message = "Please complete registration process";
+                            Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<AuthResponse> call, Throwable t) {
+                        String message = t.getLocalizedMessage();
+                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
+//        Facebook end
+
 
         Btgoogle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 signIn();
-//
             }
         });
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         /**
          * Forgot Password Click Listener
@@ -94,49 +151,41 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    if (TextUtils.isEmpty(email.getText().toString()) || TextUtils.isEmpty(password.getText())){
-                        String message =" All input Required..";
-                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
-                    }
-                    else {
-                        Credentials credentials = new Credentials();
-                        credentials.setEmail( email.getText().toString());
-                        credentials.setPassword(password.getText().toString());
+                if (TextUtils.isEmpty(email.getText().toString()) || TextUtils.isEmpty(password.getText())) {
+                    String message = " All input Required..";
+                    Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+                } else {
+                    Credentials credentials = new Credentials();
+                    credentials.setEmail(email.getText().toString());
+                    credentials.setPassword(password.getText().toString());
 
-                        Md5 md5 = new Md5(password.getText().toString());
-                        String a =  md5.getMd5();
-                        credentials.setPassword(a);
-                        password.setText(credentials.getPassword());
+                    Md5 md5 = new Md5(password.getText().toString());
+                    String a = md5.getMd5();
+                    credentials.setPassword(a);
+                    password.setText(credentials.getPassword());
 
-                        logiUser(credentials);
-                    }
+                    logiUser(credentials);
+                }
             }
         });
-        /**
-         * Google Login
-         */
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-        /**
-         * Google Button click Listener
-         */
 
     }
+/*
+FaceBook
+ */
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        callbackManager.onActivityResult(requestCode, resultCode, data);
+//
+//    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-    }
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+   @Override
+   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
@@ -145,25 +194,50 @@ public class MainActivity extends AppCompatActivity {
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
-
         }
+        else{
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
+
     }
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            // Signed in successfully, show authenticated UI.
-        Intent intent = new Intent(MainActivity.this, AfterLoginActivity.class);
-        startActivity(intent);
 
-        }
-        catch (ApiException e) {
+//             Signed in successfully, show authenticated UI.
+//            Call<AuthResponse> loginResponseCall = ApiClient.getService().socialAuth(user);
+            Call<AuthResponse> loginResponseCall = ApiClient.getService().socialAuth(user);
+            loginResponseCall.enqueue(new Callback<AuthResponse>() {
+                @Override
+                public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                    if (response.isSuccessful()){
+                        AuthResponse loginResponse = response.body();
+//                    Log.d("user", response.body().toString());
+                        startActivity(new Intent(MainActivity.this, AfterLoginActivity.class));
+                        finish();
+                    }else if(response.code() == 400) {
+                        startActivity(new Intent(MainActivity.this, AfterLoginActivity.class));
+                        finish();
+//                        String message = "Please complete registration process" ;
+//                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+                    }
+
+                }
+                @Override
+                public void onFailure(Call<AuthResponse> call, Throwable t) {
+                    String message = t.getLocalizedMessage();
+                    Toast.makeText(MainActivity.this,message, Toast.LENGTH_LONG).show();
+                }
+            });
+//            Intent intent = new Intent(MainActivity.this, AfterLoginActivity.class);
+//            startActivity(intent);
+        } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w("Error", "signInResult:failed code=" + e.getStatusCode());
+            Log.v("Error", "signInResult:failed code=" + e.getStatusCode());
 
         }
     }
-
     /**
      * Login Api Call
      * @param credentials
@@ -175,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
                 if (response.isSuccessful()){
                     AuthResponse loginResponse = response.body();
-//                    Log.d("user", response.body().toString());
+                    Log.d("user", response.body().toString());
                     startActivity(new Intent(MainActivity.this, AfterLoginActivity.class));
                     finish();
                 }
@@ -203,4 +277,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }
