@@ -5,7 +5,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ApiClient {
+public class ConfigApiClient {
     public static Retrofit getRetrofit() {
 
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();

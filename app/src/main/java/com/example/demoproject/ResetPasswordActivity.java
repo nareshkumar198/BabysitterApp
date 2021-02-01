@@ -2,7 +2,6 @@ package com.example.demoproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -10,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.demoproject.ApiClient.ApiClient;
+import com.example.demoproject.ApiClient.ConfigApiClient;
 import com.example.demoproject.model.AuthResponse;
 import com.example.demoproject.model.Credentials;
 
@@ -48,7 +47,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
     }
 
     public void forgotPassword(Credentials credentials){
-        Call<AuthResponse> authResponseCall = ApiClient.getService().forgotPassword(credentials);
+        Call<AuthResponse> authResponseCall = ConfigApiClient.getService().forgotPassword(credentials);
         authResponseCall.enqueue(new Callback<AuthResponse>() {
             @Override
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {

@@ -17,10 +17,9 @@ public class UserDbHelper extends SQLiteOpenHelper {
         String SQL_CREATE_USERS_TABLE =  "CREATE TABLE " + UserEntry.TABLE_NAME + " ("
                 + UserEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + UserEntry.COLUMN_USER_EMAIL + " TEXT NOT NULL, "
-                + UserEntry.COLUMN_USER_PASSWORD + " TEXT NOT NULL, "
                 + UserEntry.COLUMN_USER_FIRSTNAME + " TEXT NOT NULL, "
                 + UserEntry.COLUMN_USER_LASTNAME + " TEXT NOT NULL, "
-                + UserEntry.COLUMN_USER_PHONENO + " INTEGER NOT NULL, "
+                + UserEntry.COLUMN_USER_PHONE + " INTEGER NOT NULL, "
                 + UserEntry.COLUMN_USER_COMM_MODE + " INTEGER NOT NULL );";
         // Execute the SQL statement
         db.execSQL(SQL_CREATE_USERS_TABLE);

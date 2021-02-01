@@ -11,15 +11,12 @@ import retrofit2.http.PUT;
 
 public interface FamilyService {
 
-    @GET("api/families")
-    Call<Family> getFamily(@Header("email") String email);
+    @GET("api/organization")
+    Call<Family> getFamily(@Header("email") String email, @Header("Authorization") String token);
 
-    @POST("api/families")
-    Call<Family> addFamily(@Body Family family);
+    @POST("api/organization")
+    Call<Family> addFamily(@Body Family family, @Header("Authorization") String token);
 
-    @PUT("api/families")
-    Call<Family> editFamily(@Body Family family);
-
-
-
+    @PUT("api/organization")
+    Call<Family> editFamily(@Body Family family, @Header("Authorization") String token);
 }

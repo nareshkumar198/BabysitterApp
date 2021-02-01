@@ -1,13 +1,10 @@
 package com.example.demoproject.model;
 
-import java.io.Serializable;
-
-
-public class User implements Serializable {
-
+public class UserDetails {
     private String city;
     private int communicationMode;
     private String email;
+    private boolean eula;
     private String password;
     private String firstName;
     private String lastName;
@@ -16,10 +13,8 @@ public class User implements Serializable {
     private String photoUrl;
     private String socialId;
     private String state;
-    private String status;
     private TimeZone timeZone;
     private String zipCode;
-    private boolean eulaNotCurrent;
 
     public String getCity() {
         return city;
@@ -43,6 +38,14 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isEula() {
+        return eula;
+    }
+
+    public void setEula(boolean eula) {
+        this.eula = eula;
     }
 
     public String getPassword() {
@@ -77,6 +80,14 @@ public class User implements Serializable {
         this.phone = phone;
     }
 
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
+    }
+
     public String getPhotoUrl() {
         return photoUrl;
     }
@@ -84,7 +95,6 @@ public class User implements Serializable {
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
     }
-
 
     public String getSocialId() {
         return socialId;
@@ -102,14 +112,6 @@ public class User implements Serializable {
         this.state = state;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public TimeZone getTimeZone() {
         return timeZone;
     }
@@ -124,21 +126,5 @@ public class User implements Serializable {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
-    }
-
-    public boolean isEulaNotCurrent() {
-        return eulaNotCurrent;
-    }
-
-    public void setEulaNotCurrent(boolean eulaNotCurrent) {
-        this.eulaNotCurrent = eulaNotCurrent;
-    }
-
-    public String getProvider() {
-        return provider;
-    }
-
-    public void setProvider(String provider) {
-        this.provider = provider;
     }
 }

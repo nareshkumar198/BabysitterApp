@@ -11,23 +11,19 @@ public class Md5 {
         this.hashedPassword = hashedPassword;
     }
 
-        public String getMd5(){
-            try {
-                MessageDigest md = MessageDigest.getInstance("MD5");
-                byte[] messageDigest = md.digest(hashedPassword.getBytes());
-                BigInteger number = new BigInteger(1 , messageDigest);
-                String hashText = number.toString(16);
-                while (hashText.length()<32){
-                    hashText ="0"+hashText;
-                }
-                return hashText;
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
+    public String getMd5(){
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(hashedPassword.getBytes());
+            BigInteger number = new BigInteger(1 , messageDigest);
+            String hashText = number.toString(16);
+            while (hashText.length()<32){
+                hashText ="0"+hashText;
             }
-            return hashedPassword;
+            return hashText;
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
         }
-
-
-
+        return hashedPassword;
     }
-
+}

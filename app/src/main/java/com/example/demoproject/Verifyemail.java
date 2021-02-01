@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.demoproject.ApiClient.ApiClient;
+import com.example.demoproject.ApiClient.ConfigApiClient;
 import com.example.demoproject.model.AuthResponse;
 import com.example.demoproject.model.Credentials;
 
@@ -59,7 +59,7 @@ public class Verifyemail extends AppCompatActivity {
     }
 
     public void signInCode( Credentials credentials){
-        Call<AuthResponse> authResponseCall = ApiClient.getService().signInCode(credentials);
+        Call<AuthResponse> authResponseCall = ConfigApiClient.getService().signInCode(credentials);
         authResponseCall.enqueue(new Callback<AuthResponse>() {
                                      @Override
                                      public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {

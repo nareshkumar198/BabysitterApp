@@ -1,11 +1,8 @@
 package com.example.demoproject;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -15,7 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.demoproject.ApiClient.ApiClient;
+import com.example.demoproject.ApiClient.ConfigApiClient;
 import com.example.demoproject.ApiClient.Md5;
 import com.example.demoproject.model.AuthResponse;
 import com.example.demoproject.model.Credentials;
@@ -32,10 +29,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
-
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -69,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
 //                Call<AuthResponse> loginResponseCall = ApiClient.getService().socialAuth(user);
-                Call<AuthResponse> loginResponseCall = ApiClient.getService().socialAuth(user);
+                Call<AuthResponse> loginResponseCall = ConfigApiClient.getService().socialAuth(user);
                 loginResponseCall.enqueue(new Callback<AuthResponse>() {
                     @Override
                     public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
@@ -206,7 +199,7 @@ FaceBook
 
 //             Signed in successfully, show authenticated UI.
 //            Call<AuthResponse> loginResponseCall = ApiClient.getService().socialAuth(user);
-            Call<AuthResponse> loginResponseCall = ApiClient.getService().socialAuth(user);
+            Call<AuthResponse> loginResponseCall = ConfigApiClient.getService().socialAuth(user);
             loginResponseCall.enqueue(new Callback<AuthResponse>() {
                 @Override
                 public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
@@ -243,7 +236,7 @@ FaceBook
      * @param credentials
      */
     public void logiUser(Credentials credentials){
-        Call<AuthResponse> loginResponseCall = ApiClient.getService().loginUser(credentials);
+        Call<AuthResponse> loginResponseCall = ConfigApiClient.getService().loginUser(credentials);
         loginResponseCall.enqueue(new Callback<AuthResponse>() {
             @Override
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
